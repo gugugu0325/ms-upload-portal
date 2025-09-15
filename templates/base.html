@@ -1,34 +1,26 @@
 <!doctype html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>星域谷 - 活動上傳</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  </head>
-  <body>
-    <header>
-      <h1>星域谷｜活動截圖上傳入口</h1>
-      <nav>
-        <a href="{{ url_for('index') }}">① 首次資料上傳</a>
-        <a href="{{ url_for('daily') }}">② 每日推文上傳</a>
-        <a href="{{ url_for('gm_login') }}">GM 後台</a>
-      </nav>
-    </header>
-    {% with messages = get_flashed_messages(with_categories=True) %}
-      {% if messages %}
-        <div class="flash">
-          {% for cat, msg in messages %}
-          <p class="{{ cat }}">{{ msg }}</p>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
-    <main>
-      {% block content %}{% endblock %}
-    </main>
-    <footer>
-      <small>© {{ 2025 }} 星域谷</small>
-    </footer>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>星域谷 - 活動上傳</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <h1>星域谷｜活動截圖上傳入口</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">① 首次資料上傳</a>
+    <a href="{{ url_for('daily') }}">② 每日推文上傳</a>
+    <a href="{{ url_for('gm_login') }}">GM 後台</a>
+  </nav>
+</header>
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div class="flash">{% for cat, msg in messages %}<p class="{{ cat }}">{{ msg }}</p>{% endfor %}</div>
+  {% endif %}
+{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer><small>© 2025 星域谷</small></footer>
+</body>
 </html>
