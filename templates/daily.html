@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>② 每日推文截圖上傳（可每天上傳，單次可多張）</h2>
+<form action="{{ url_for('daily_upload') }}" method="post" enctype="multipart/form-data" class="card">
+  <label>遊戲 ID（必填）
+    <input type="text" name="game_id" required placeholder="用與首次上傳相同的 ID">
+  </label>
+
+  <label>每日推文截圖（可多選，建議壓縮圖片大小）
+    <input type="file" name="tweet_images" accept="image/*" multiple required>
+  </label>
+
+  <label>備註／留言（選填）
+    <textarea name="notes" rows="3" placeholder="今天推文的連結、補件說明等..."></textarea>
+  </label>
+
+  <button type="submit">送出</button>
+</form>
+
+<p class="hint">可每日上傳一次或多次。GM 會依據時間戳與 ID 做確認。</p>
+{% endblock %}

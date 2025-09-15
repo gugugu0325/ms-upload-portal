@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>首次資料 #{{ sub.id }}</h2>
+<div class="card">
+  <p><b>遊戲 ID：</b>{{ sub.game_id }}</p>
+  <p><b>建立時間：</b>{{ sub.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+  <p><b>備註：</b>{{ sub.notes or '-' }}</p>
+
+  <div class="grid">
+    <div>
+      <h4>事前預約</h4>
+      <img src="{{ url_for('uploaded_file', filename=sub.prereg_1) }}" alt="prereg1">
+      <img src="{{ url_for('uploaded_file', filename=sub.prereg_2) }}" alt="prereg2">
+    </div>
+    <div>
+      <h4>Discord 推廣</h4>
+      <img src="{{ url_for('uploaded_file', filename=sub.discord_1) }}" alt="discord1">
+      <img src="{{ url_for('uploaded_file', filename=sub.discord_2) }}" alt="discord2">
+    </div>
+  </div>
+
+  <a class="btn" href="{{ url_for('gm_dashboard') }}">返回列表</a>
+</div>
+{% endblock %}

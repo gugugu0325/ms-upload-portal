@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card success">
+  {% if mode == 'init' %}
+    <h3>✅ 首次資料已送出！</h3>
+    <p>你的遊戲 ID：<b>{{ game_id }}</b></p>
+    <p>接下來可到「每日推文上傳」持續補上每日截圖。</p>
+  {% else %}
+    <h3>✅ 每日推文已上傳！</h3>
+    <p>你的遊戲 ID：<b>{{ game_id }}</b></p>
+    <p>可隨時回來補上更多截圖。</p>
+  {% endif %}
+  <a class="btn" href="{{ url_for('index') }}">回首頁</a>
+  <a class="btn" href="{{ url_for('daily') }}">繼續上傳每日推文</a>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>① 首次資料上傳（一次）</h2>
+<form action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data" class="card">
+  <label>遊戲 ID（必填）
+    <input type="text" name="game_id" required placeholder="例如：星域小可愛001">
+  </label>
+
+  <div class="grid">
+    <div>
+      <label>事前預約截圖（1）<input type="file" name="prereg_1" accept="image/*" required></label>
+      <label>事前預約截圖（2）<input type="file" name="prereg_2" accept="image/*" required></label>
+    </div>
+    <div>
+      <label>Discord 推廣截圖（1）<input type="file" name="discord_1" accept="image/*" required></label>
+      <label>Discord 推廣截圖（2）<input type="file" name="discord_2" accept="image/*" required></label>
+    </div>
+  </div>
+
+  <label>備註／留言（選填）
+    <textarea name="notes" rows="3" placeholder="想補充給 GM 的訊息..."></textarea>
+  </label>
+
+  <button type="submit">送出</button>
+</form>
+
+<p class="hint">送出後，GM 會在後台審核。若需要補件或修改，請在每日推文區塊附註說明。</p>
+{% endblock %}
