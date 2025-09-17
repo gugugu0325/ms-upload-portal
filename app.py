@@ -360,6 +360,7 @@ def gm_dashboard():
     start = request.args.get("start","").strip()
     end = request.args.get("end","").strip()
     status_filter = request.args.get("status","").strip()
+    kind = request.args.get("kind","all").strip()    # <-- 新增：顯示哪個類別 
 
     subs = Submission.query
     tweets = DailyTweet.query
@@ -397,7 +398,16 @@ def gm_dashboard():
     tweets = tweets.order_by(DailyTweet.created_at.desc()).all()
     likes = likes.order_by(DcLike.created_at.desc()).all()
 
-    return render_template("admin_dashboard.html", subs=subs, tweets=tweets, likes=likes, q=q, start=start, end=end, status=status_filter)
+    # 依類別篩選（全部 / submission / tweet / dclike）
+    show_sub = show_tweet = show_like = True
+    if kind == "submission":
+        show_tweet = show_like = False
+    elif kind == "tweet":
+        show_sub = show_like = False
+    elif kind == "dclike":
+        show_sub = show_tweet = False
+
+    return render_template("admin_dashboard.html", subs=subs, tweets=tweets, likes=likes, q=q, start=start, end=end, status=status_filter,kind=kind, show_sub=show_sub, show_tweet=show_tweet, show_like=show_like)
 
 @app.route("/gm/submission/<int:sid>")
 def gm_view_submission(sid):
