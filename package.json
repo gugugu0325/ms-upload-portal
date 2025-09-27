@@ -1,0 +1,17 @@
+{
+  "name": "ultimate-password-multiplayer-cjs",
+  "version": "1.0.0",
+  "description": "終極密碼多人小遊戲（CommonJS 版本，避免 ESM 相關問題）",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
