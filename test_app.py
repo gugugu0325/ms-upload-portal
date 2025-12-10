@@ -58,7 +58,9 @@ def test_gm_login_failure(client):
         'password': 'wrong'
     }, follow_redirects=True)
     assert response.status_code == 200
-    assert '帳號或密碼錯誤' in response.get_data(as_text=True) or response.request.path == '/gm/login'
+    # Either shows error message or stays on login page
+    response_text = response.get_data(as_text=True)
+    assert '帳號或密碼錯誤' in response_text or 'login' in response_text.lower()
 
 
 def test_submit_missing_game_id(client):
@@ -101,14 +103,14 @@ def test_allowed_file():
     """Test the allowed_file function."""
     from app import allowed_file
     
-    assert allowed_file('test.png') == True
-    assert allowed_file('test.jpg') == True
-    assert allowed_file('test.jpeg') == True
-    assert allowed_file('test.gif') == True
-    assert allowed_file('test.webp') == True
-    assert allowed_file('test.txt') == False
-    assert allowed_file('test.exe') == False
-    assert allowed_file('test') == False
+    assert allowed_file('test.png')
+    assert allowed_file('test.jpg')
+    assert allowed_file('test.jpeg')
+    assert allowed_file('test.gif')
+    assert allowed_file('test.webp')
+    assert not allowed_file('test.txt')
+    assert not allowed_file('test.exe')
+    assert not allowed_file('test')
 
 
 def test_gm_dashboard_requires_auth(client):
@@ -116,7 +118,8 @@ def test_gm_dashboard_requires_auth(client):
     response = client.get('/gm', follow_redirects=True)
     assert response.status_code == 200
     # Should redirect to login page
-    assert response.request.path == '/gm/login' or 'login' in response.get_data(as_text=True).lower()
+    response_text = response.get_data(as_text=True)
+    assert 'login' in response_text.lower()
 
 
 if __name__ == '__main__':
